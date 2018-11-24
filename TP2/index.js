@@ -8,10 +8,11 @@ $(document).ready(function () {
         $('#ranking').hide();
     }
 
-    welcome();
+
 
     function userName(){
         var name = $('#name').val();
+        $('#name').val('')
         userData.name = name;
 
         if (name != ''){
@@ -56,6 +57,7 @@ $(document).ready(function () {
             if (clicks <= (level.attempts * 2)){
                 clicks++;
                 $(this).css('opacity', '1')
+                $(this).css('transition', '0.5s')
 
                 twoCards.push($(this))
                 console.log('click', twoCards)
@@ -74,9 +76,9 @@ $(document).ready(function () {
                     else {
                         setTimeout(function(){ 
                             twoCards[0].css('opacity','0');
-                            twoCards[1].css('opacity','0'); 
+                            twoCards[1].css('opacity','0');
                             twoCards = []
-                        },500)
+                        },800)
                     }   
                 }
                 if (matches === 6) {
@@ -94,71 +96,12 @@ $(document).ready(function () {
             }
             $('.attempts-used').text(attempts);
         })
+        $('.card').on('click', function(){
+            $('.card').removeClass('flip')
+            $(this).addClass('flip')
+        })
     };
 
-
-    function storeAttempts(userAttempts){
-        userData.attempts = userAttempts;
-        users.push(userData)
-    }
-
-    function storeUser (){
-        var usersJSON = JSON.stringify(users)
-        localStorage.setItem('users', usersJSON)
-        usersJSON = localStorage.getItem('users')
-        users = JSON.parse(usersJSON)
-    }
-
-    function winGame(userAttempts){
-        $('.modal').toggleClass('show-modal');
-        renderTable();
-        $('#ranking').show();
-        $('.win-msg').text('Ganaste con 🎉! ' + userAttempts + ' intentos. Ya podés volver a jugar');
-
-    }
-    function lostGame(){
-        $('.modal').toggleClass('show-modal');
-        renderTable();
-        $('#ranking').show();
-        $('.win-msg').text('PERDISTE! :(')
-        
-    }
-
-    function renderTable(){
-        $('.row').remove();
-        for(let i = 0; i < users.length; i++){
-            console.log('entra al for de RenderTable')
-            var rankName = `<td class="rank-name">${users[i].name}</td>`
-            var rankLevel = `<td class="rank-level">${users[i].level}</td>`
-            var rankAttempts = `<td class="rank-level">${users[i].attempts}</td>`
-            var row = $('<tr class="row"></tr>')
-            row.append(rankName)
-            row.append(rankLevel)
-            row.append(rankAttempts)
-            $('#rank-table').append(row)
-        }
-    }
-    
-    $('.level-button.facil').on('click', function(){
-        userName();
-        userData.level = levels[0].name;
-        memotest(levels[0]);
-    });
-
-    $('.level-button.intermedio').on('click', function(){
-        userName();
-        userData.level = levels[1].name;
-        memotest(levels[1]);
-    });
-
-    $('.level-button.experto').on('click', function(){
-        userName();
-        userData.level = levels[2].name 
-        memotest(levels[2]);
-    });
-
-
-    
     function renderGameboard() {
         var cardBackImage = {
             name: 'tapada',
@@ -208,6 +151,66 @@ $(document).ready(function () {
         $('#gameboard').show(); 
     }
 
+    function storeAttempts(userAttempts){
+        userData.attempts = userAttempts;
+        users.push(userData)
+    }
+
+    function storeUser (){
+        var usersJSON = JSON.stringify(users)
+        localStorage.setItem('users', usersJSON)
+        usersJSON = localStorage.getItem('users')
+        users = JSON.parse(usersJSON)
+    }
+
+    function winGame(userAttempts){
+        $('.modal').toggleClass('show-modal');
+        renderTable();
+        $('#ranking').show();
+        $('.win-msg').text('Ganaste con 🎉! ' + userAttempts + ' intentos. Ya podés volver a jugar');
+
+    }
+    function lostGame(){
+        $('.modal').toggleClass('show-modal');
+        renderTable();
+        $('#ranking').show();
+        $('.win-msg').text('PERDISTE! :(')
+        
+    }
+
+    function renderTable(){
+        $('.row').remove();
+        for(let i = 0; i < users.length; i++){
+            console.log('entra al for de RenderTable')
+            var rankName = `<td class="rank-name">${users[i].name}</td>`
+            var rankLevel = `<td class="rank-level">${users[i].level}</td>`
+            var rankAttempts = `<td class="rank-level">${users[i].attempts}</td>`
+            var row = $('<tr class="row"></tr>')
+            row.append(rankName)
+            row.append(rankLevel)
+            row.append(rankAttempts)
+            $('#rank-table').append(row)
+        }
+    }
+
+    $('.level-button.facil').on('click', function(){
+        userName();
+        userData.level = levels[0].name;
+        memotest(levels[0]);
+    });
+
+    $('.level-button.intermedio').on('click', function(){
+        userName();
+        userData.level = levels[1].name;
+        memotest(levels[1]);
+    });
+
+    $('.level-button.experto').on('click', function(){
+        userName();
+        userData.level = levels[2].name 
+        memotest(levels[2]);
+    });
+
     $('.play-again').on('click', function(){
         $('.modal').toggleClass('show-modal');
         $('.card').remove();
@@ -216,5 +219,5 @@ $(document).ready(function () {
 
 });
 
-
+welcome();
 

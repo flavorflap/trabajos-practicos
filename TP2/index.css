@@ -67,12 +67,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     margin: auto;
-
 }
 
-.flipWrapper {
-    display: flex;
-}
 .card{
     border: 3px solid orange;
     width: 20%;
@@ -85,16 +81,18 @@ body {
 
 .card:hover{
     cursor: pointer;
-    -webkit-box-shadow: -5px 5px 5px 0px rgba(150,150,150,0.59);
-    -moz-box-shadow: -5px 5px 5px 0px rgba(150,150,150,0.59);
-    box-shadow: -5px 5px 5px 0px rgba(150,150,150,0.59);
+    box-shadow: -5px 5px 5px 0px rgba(150,150,150,0.59)
+}
+
+.card.flip{
+    transform: rotateY(360deg);
+    transition: 0.5s;
 }
 
 .card-back{
-    width: 100%;
-
-    
+    width: 100%;  
 }
+
 
 .card-front{
     position: absolute;
@@ -104,9 +102,9 @@ body {
     opacity: 0;
 }
 
+
 .img-back{
-    width: 100%;
-    
+    width: 100%;  
 }
 
 .img-front{
