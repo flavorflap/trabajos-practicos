@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name='viewport' content='width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
     <link href="https://fonts.googleapis.com/css?family=Mali|Pacifico" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <title>Memotest</title>
@@ -32,37 +33,27 @@
           
         </div>
         <div class='attempts'>
-                Intentos:<div class='attempts-used'></div>
+                Intentos: <div class='attempts-used'> </div>
         </div>
     </div>
     <div class='modal'>
     </div>
     <div id='ranking'>
-            <div class="win-msg">GANASTE 🎉! con <span class="attempts-used"></span> intentos. <br>
-            Ya podés volver a jugar.</div>
+            <div class="win-msg"></div>
             <div class="play-again">VOLVER A JUGAR</div>
-            <table class='rank-table'>
+            <table id='rank-table'>
                 <tr>
                   <th>NOMBRE</th>
                   <th>NIVEL</th>
                   <th>INTENTOS</th>
                 </tr>
-                <tr>
-                  <td class='rank-name'>Natalia</td>
-                  <td class='rank-level'>FACIL</td>
-                  <td class='rank-attempts'>12</td>
-                </tr>
-                <tr>
-                    <td class='rank-name'>Nati</td>
-                    <td class='rank-level'>FACIL</td>
-                    <td class='rank-attempts'>14</td>
-                  </tr>
               </table>
         </div>
     <script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> -->
     <script src="index.js"></script>
 </body>
 </html>
