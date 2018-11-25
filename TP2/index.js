@@ -7,12 +7,10 @@ $(document).ready(function () {
         $('#gameboard').hide();
         $('#ranking').hide();
     }
-
-
+    welcome();
 
     function userName(){
         var name = $('#name').val();
-        $('#name').val('')
         userData.name = name;
 
         if (name != ''){
@@ -55,29 +53,37 @@ $(document).ready(function () {
         $('.card-front').on('click', function(){
 
             if (clicks <= (level.attempts * 2)){
-                clicks++;
-                $(this).css('opacity', '1')
-                $(this).css('transition', '0.5s')
 
-                twoCards.push($(this))
-                console.log('click', twoCards)
+                clicks++;
+                $(this).addClass('visible')
+                // $(this).css('opacity', '1');
+                // $(this).css('transition', '0.5s');
+                $(this).parent().addClass('flip');
+
+                twoCards.push($(this));
+
                 if (twoCards.length === 2) {
+
                     attempts++ ;
-                    console.log('segundo if', twoCards)
+
                     if (twoCards[0].data('name') === twoCards[1].data('name') 
                         && twoCards[0].data('id') !== twoCards[1].data('id')) {
+
                         twoCards[0].addClass('gris');
                         twoCards[1].addClass('gris');
-                        console.log('tercer if', twoCards)
+
                         matches++;
-                        console.log(matches)
+
                         twoCards = [];
                     }
                     else {
+                        
                         setTimeout(function(){ 
-                            twoCards[0].css('opacity','0');
-                            twoCards[1].css('opacity','0');
-                            twoCards = []
+                            twoCards[0].removeClass('visible')
+                            twoCards[1].removeClass('visible')
+                            twoCards[0].parent().removeClass('flip')
+                            twoCards[1].parent().removeClass('flip')
+                            twoCards = [];
                         },800)
                     }   
                 }
@@ -85,20 +91,14 @@ $(document).ready(function () {
                     storeAttempts(attempts);
                     storeUser();
                     winGame(attempts);
-                    console.log("users", users, "user Data", userData)
                 }
                 if (clicks === (level.attempts * 2) && matches < 6){
                     storeAttempts(attempts);
                     storeUser();
                     lostGame();
-                    console.log("users", users, "user Data", userData)
                 }
             }
             $('.attempts-used').text(attempts);
-        })
-        $('.card').on('click', function(){
-            $('.card').removeClass('flip')
-            $(this).addClass('flip')
         })
     };
 
@@ -153,23 +153,24 @@ $(document).ready(function () {
 
     function storeAttempts(userAttempts){
         userData.attempts = userAttempts;
-        users.push(userData)
+        users.push(userData);
     }
 
     function storeUser (){
-        var usersJSON = JSON.stringify(users)
-        localStorage.setItem('users', usersJSON)
-        usersJSON = localStorage.getItem('users')
-        users = JSON.parse(usersJSON)
+        var usersJSON = JSON.stringify(users);
+        localStorage.setItem('users', usersJSON);
+        usersJSON = localStorage.getItem('users');
+        users = JSON.parse(usersJSON);
     }
 
     function winGame(userAttempts){
         $('.modal').toggleClass('show-modal');
         renderTable();
         $('#ranking').show();
-        $('.win-msg').text('Ganaste con 🎉! ' + userAttempts + ' intentos. Ya podés volver a jugar');
-
+        $('.win-msg').text('Ganaste con 🎉! ' + userAttempts + 
+        ' intentos. Ya podés volver a jugar');
     }
+    
     function lostGame(){
         $('.modal').toggleClass('show-modal');
         renderTable();
@@ -181,15 +182,14 @@ $(document).ready(function () {
     function renderTable(){
         $('.row').remove();
         for(let i = 0; i < users.length; i++){
-            console.log('entra al for de RenderTable')
-            var rankName = `<td class="rank-name">${users[i].name}</td>`
-            var rankLevel = `<td class="rank-level">${users[i].level}</td>`
-            var rankAttempts = `<td class="rank-level">${users[i].attempts}</td>`
-            var row = $('<tr class="row"></tr>')
-            row.append(rankName)
-            row.append(rankLevel)
-            row.append(rankAttempts)
-            $('#rank-table').append(row)
+            var rankName = `<td class="rank-name">${users[i].name}</td>`;
+            var rankLevel = `<td class="rank-level">${users[i].level}</td>`;
+            var rankAttempts = `<td class="rank-level">${users[i].attempts}</td>`;
+            var row = $('<tr class="row"></tr>');
+            row.append(rankName);
+            row.append(rankLevel);
+            row.append(rankAttempts);
+            $('#rank-table').append(row);
         }
     }
 
@@ -219,5 +219,5 @@ $(document).ready(function () {
 
 });
 
-welcome();
+
 

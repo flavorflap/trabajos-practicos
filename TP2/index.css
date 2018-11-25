@@ -85,14 +85,13 @@ body {
 }
 
 .card.flip{
-    transform: rotateY(360deg);
+    transform: rotateY(180deg);
     transition: 0.5s;
 }
 
 .card-back{
     width: 100%;  
 }
-
 
 .card-front{
     position: absolute;
@@ -102,6 +101,11 @@ body {
     opacity: 0;
 }
 
+.card-front.visible{
+    opacity: 1;
+    transition: 0.5s;
+    
+}
 
 .img-back{
     width: 100%;  
